@@ -9,7 +9,6 @@ dotenv.config();
 const app = express();
 
 
-
 const limiter = rateLimit({
     windowMs: 15 * 60 * 1000, // 15 minutes
     max: 100, // limit each IP to 100 requests per windowMs
@@ -19,6 +18,7 @@ const limiter = rateLimit({
 });
 
 
+
 // All middleware 
 app.use(limiter);
 app.use(express.json());
@@ -26,12 +26,13 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
 
-connectDB();
+
 
 app.use('/api/auth', authRoutes);
 app.use('/api/tasks', taskRoutes);
 
 app.listen(process.env.PORT, () => {
+    connectDB();
     console.log(`Server is running on port ${process.env.PORT}`);
 });
 
